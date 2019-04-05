@@ -13,7 +13,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.8",
-    "truffle-hdwallet-provider": "0.0.6",
+    "truffle-hdwallet-provider": "1.0.6",
     "web3": "^1.0.0-beta.36"
   },
   "scripts": {

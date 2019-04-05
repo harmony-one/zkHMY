@@ -1,6 +1,6 @@
 var HDWalletProvider = require('truffle-hdwallet-provider');
 const MNEMONIC =
-  'gesture rather obey video awake genuine patient base soon parrot upset lounge';
+  'link excess isolate absurd tuna jump arm pause orphan foil start speed';
 
 /*
  * NB: since truffle-hdwallet-provider 0.0.5 you must wrap HDWallet providers in a
@@ -49,13 +49,13 @@ module.exports = {
       provider: function() {
         return new HDWalletProvider(
           MNEMONIC,
-          'https://ropsten.infura.io/v3/f2aa27e5bf2b4bf1b3b002e8687b61da',
+          'https://ropsten.infura.io/v3/148cf5958fe34905abc3be458055eb30',
           0,
           5,
         );
       },
       network_id: 3,
-      gas: 3000000, //make sure this gas allocation isn't over 4M, which is the max
+      gas: 4700000, //make sure this gas allocation isn't over 4M, which is the max
     },
     rinkeby: {
       privider: function() {
@@ -66,6 +66,11 @@ module.exports = {
       },
       network_id: 4,
       gas: 3000000,
+    },
+  },
+  compilers: {
+    solc: {
+      version: '^0.4.25',
     },
   },
 };

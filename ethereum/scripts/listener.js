@@ -592,7 +592,8 @@ let daiContract = new _web3.eth.Contract(
   '0xaD6D458402F60fD3Bd25163575031ACDce07538D',
 );
 
-const secretNoteAddress = '0x8F072E625BBC843adECd9D563C3DC3279399499C';
+//const secretNoteAddress = '0x8F072E625BBC843adECd9D563C3DC3279399499C';
+const secretNoteAddress = '0x7F69D34FDd8e446ac08D40553a2D25bEF57DF806';
 
 let secretNoteContract = new web3.eth.Contract(abi, secretNoteAddress);
 // exports.module = {secretNoteAddress, abi};
