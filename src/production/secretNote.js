@@ -4,25 +4,25 @@ const BN = require('bn.js');
 const crypto = require('crypto');
 
 // const contractAddress = compiledSecretNote.networks[5777].address;
-const contractAddress = '0x187dc8FF9092471A71e344C18F52Cad17e43d719'
-console.log('contractAddress', contractAddress)
+const contractAddress = '0x8F072E625BBC843adECd9D563C3DC3279399499C';
+console.log('contractAddress', contractAddress);
 
 const SecretNote = new web3.eth.Contract(
   compiledSecretNote.abi,
-  contractAddress
-)
+  contractAddress,
+);
 
-console.log('SecretNote', SecretNote)
+console.log('SecretNote', SecretNote);
 
 export const getAccounts = async () => {
   const accounts = await web3.eth.getAccounts();
-  return accounts
-}
+  return accounts;
+};
 
 export const getCurrentAccount = async () => {
   const accounts = await web3.eth.getAccounts();
   return accounts[0];
-}
+};
 
 export const getNotes = async () => {
   const notes = [];
@@ -32,55 +32,62 @@ export const getNotes = async () => {
   const len = await SecretNote.methods.getNotesLength().call();
   for (let i = 0; i < len; i++) {
     const cipher = await SecretNote.methods.allNotes(i).call();
-    console.log('cipher', cipher)
+    console.log('cipher', cipher);
     const dec = await decrypt(cipher, userAccount);
-    console.log('dec', dec)
+    console.log('dec', dec);
     if (dec.isMine) {
-      console.log('worked')
+      console.log('worked');
       const noteHash = getNoteHash(userAccount, dec.amount);
-      const state = await SecretNote.methods.notes('0x' + noteHash).call()
-      console.log('state', state)
+      const state = await SecretNote.methods.notes('0x' + noteHash).call();
+      console.log('state', state);
       if (state == '1' || state == '2') {
         // needs to be displayed
-        notes.push({ hash: '0x' + noteHash, status: state == '1' ? 'Created' : 'Spent', amount: parseInt(dec.amount, 16) });
+        notes.push({
+          hash: '0x' + noteHash,
+          status: state == '1' ? 'Created' : 'Spent',
+          amount: parseInt(dec.amount, 16),
+        });
       }
     }
   }
-  console.log('notes', notes)
+  console.log('notes', notes);
   return notes;
-}
+};
 
 export const getAllNotes = async () => {
   const notes = [];
   const len = await SecretNote.methods.getNotesLength().call();
-  console.log('len', len)
+  console.log('len', len);
   for (let i = 0; i < len; i++) {
     const hash = await SecretNote.methods.allNotes(i).call();
     const hash2 = await SecretNote.methods.allHashedNotes(i).call();
-    console.log(hash2)
-    notes.push({ hash })
+    console.log(hash2);
+    notes.push({hash});
   }
-  console.log('allnotes', notes)
+  console.log('allnotes', notes);
   return notes;
-}
+};
 
-export const claimDAI = async (amount) => {
+export const claimDAI = async amount => {
   const accounts = await getAccounts();
-  console.log('accounts', accounts, amount)
+  console.log('accounts', accounts, amount);
   await SecretNote.methods.claimNote(amount).send({
     from: accounts[0],
-    gasPrice: '0x' + parseInt('10000000000').toString(16)
+    gasPrice: '0x' + parseInt('10000000000').toString(16),
   });
-}
+};
 
 function getNoteHash(address, amount) {
   // pad address and amount to 32bytes
   let _address = new BN(address, 16).toString(16, 64);
   let _amount = new BN(amount, 16).toString(16, 64); // 32 bytes = 64 chars in hex
-  console.log(_address, _amount)
+  console.log(_address, _amount);
   const buf = Buffer.from(_address + _amount, 'hex');
-  const digest = crypto.createHash('sha256').update(buf).digest('hex');
-  console.log('digest', digest)
+  const digest = crypto
+    .createHash('sha256')
+    .update(buf)
+    .digest('hex');
+  console.log('digest', digest);
   return digest;
 }
 
@@ -88,12 +95,11 @@ async function decrypt(cipher, userAccount) {
   // let payload = await web3.eth.accounts.decrypt(JSON.parse(cipher), 'vitalik').privateKey
   const address = cipher.slice(0, 40).toLowerCase();
   const amount = cipher.slice(40);
-  console.log(address, amount)
-  return { isMine: address === userAccount.toLowerCase(), amount }
+  console.log(address, amount);
+  return {isMine: address === userAccount.toLowerCase(), amount};
   // console.log('decrypt', address, userAccount)
   // return true;
   // payload = payload.slice(2)
   // const amount = payload.slice(40)
   // console.log(address, amount);
 }
-
