@@ -1,331 +1,16 @@
-const abi = [
-  {
-    constant: false,
-    inputs: [
-      {
-        name: 'a',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'a_p',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'b',
-        type: 'uint256[2][2]',
-      },
-      {
-        name: 'b_p',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'c',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'c_p',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'h',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'k',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'input',
-        type: 'uint256[7]',
-      },
-    ],
-    name: 'verifyTx',
-    outputs: [
-      {
-        name: 'r',
-        type: 'bool',
-      },
-    ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-    signature: '0x1cdf1357',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    name: 'allHashedNotes',
-    outputs: [
-      {
-        name: '',
-        type: 'bytes32',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-    signature: '0x58a5d596',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '',
-        type: 'bytes32',
-      },
-    ],
-    name: 'notes',
-    outputs: [
-      {
-        name: '',
-        type: 'uint8',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-    signature: '0x85de26b7',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    name: 'allNotes',
-    outputs: [
-      {
-        name: '',
-        type: 'string',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-    signature: '0xddabcf41',
-  },
-  {
-    inputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-    signature: 'constructor',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: 'm',
-        type: 'bytes32',
-      },
-      {
-        indexed: false,
-        name: 'm2',
-        type: 'bytes32',
-      },
-    ],
-    name: 'debug',
-    type: 'event',
-    signature:
-      '0x02451fae0adb7ceff4e670c0e623b1c9e0b2898e612e291ad76e596de0a2d053',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: 'to',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        name: 'amount',
-        type: 'uint256',
-      },
-    ],
-    name: 'Claim',
-    type: 'event',
-    signature:
-      '0x47cee97cb7acd717b3c0aa1435d004cd5b3c8c57d70dbceb4e4458bbd60e39d4',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: 'noteId',
-        type: 'bytes32',
-      },
-      {
-        indexed: false,
-        name: 'index',
-        type: 'uint256',
-      },
-    ],
-    name: 'NoteCreated',
-    type: 'event',
-    signature:
-      '0xc904a92388c152c0c63dfe30e3e880273673ef7d33ea18195aecb5ba50f546fc',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: 'a',
-        type: 'bytes16',
-      },
-      {
-        indexed: false,
-        name: 'b',
-        type: 'bytes16',
-      },
-    ],
-    name: 'd2',
-    type: 'event',
-    signature:
-      '0xd278e8c3a630dc4a7eb08180a3880316949e0f4b449df0b97df01512353786ce',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: 's',
-        type: 'string',
-      },
-    ],
-    name: 'Verified',
-    type: 'event',
-    signature:
-      '0x3f3cfdb26fb5f9f1786ab4f1a1f9cd4c0b5e726cbdfc26e495261731aad44e39',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'getNotesLength',
-    outputs: [
-      {
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-    signature: '0xeb3d72d1',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: 'owner',
-        type: 'address',
-      },
-      {
-        name: 'amount',
-        type: 'uint256',
-      },
-      {
-        name: 'encryptedNote',
-        type: 'string',
-      },
-    ],
-    name: 'createNoteDummy',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-    signature: '0xd9758ae0',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: 'amount',
-        type: 'uint256',
-      },
-    ],
-    name: 'claimNote',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-    signature: '0xa4654ead',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: 'a',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'a_p',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'b',
-        type: 'uint256[2][2]',
-      },
-      {
-        name: 'b_p',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'c',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'c_p',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'h',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'k',
-        type: 'uint256[2]',
-      },
-      {
-        name: 'input',
-        type: 'uint256[7]',
-      },
-      {
-        name: 'encryptedNote1',
-        type: 'string',
-      },
-      {
-        name: 'encryptedNote2',
-        type: 'string',
-      },
-    ],
-    name: 'transferNote',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-    signature: '0x573d7339',
-  },
-];
-
-// import Web3 from 'web3';
+// import web3 from 'web3';
 const Web3 = require('web3');
 const BN = require('bn.js');
-// const provider = new Web3.providers.HttpProvider(
-//   'https://ropsten.infura.io/v3/6dfe769f94364017b82a58d6b5c3543e'
-// );
 
-// let web3 = new Web3(provider);
+const projectFolder = '/Users/chaoma/harmony/ethsingapore-zk-dai/ethereum';
+var truffleFile = require(projectFolder + '/build/contracts/SecretNote.json');
+var abi = truffleFile['abi'];
+
+//const provider = new Web3.providers.HttpProvider(
+//  'https://ropsten.infura.io/v3/148cf5958fe34905abc3be458055eb30',
+//);
+//
+//let _web3 = new Web3(provider);
 const _web3 = new Web3(
   new Web3.providers.WebsocketProvider('wss://ropsten.infura.io/ws'),
 );
@@ -589,21 +274,23 @@ let daiContract = new _web3.eth.Contract(
       type: 'event',
     },
   ],
-  '0xaD6D458402F60fD3Bd25163575031ACDce07538D',
+  //'0xaD6D458402F60fD3Bd25163575031ACDce07538D',
+  '0x5211e6196d2a8e4ea7ee3dd961c8d667fbc4727c',
 );
 
 //const secretNoteAddress = '0x8F072E625BBC843adECd9D563C3DC3279399499C';
 const secretNoteAddress = '0x7F69D34FDd8e446ac08D40553a2D25bEF57DF806';
 
-let secretNoteContract = new web3.eth.Contract(abi, secretNoteAddress);
+let secretNoteContract = new _web3.eth.Contract(abi, secretNoteAddress);
 // exports.module = {secretNoteAddress, abi};
 
 const options = {
   filter: {
     to: secretNoteAddress,
-    from: '0x91a502C678605fbCe581eae053319747482276b9',
+    //from: '0x3f9a8e219Ab1aD42f96b22C294E564B2b48fE636',
   },
-  fromBlock: 'latest',
+  fromBlock: 5343458,
+  toBlock: 'latest',
 };
 
 async function execute() {
@@ -615,10 +302,11 @@ async function execute() {
         return;
       }
       console.log(event);
+      console.log('hehe');
 
       // create secret note
       try {
-        const tx = await web3.eth.getTransaction(event.transactionHash);
+        const tx = await _web3.eth.getTransaction(event.transactionHash);
         const benefiaciary = tx.from.slice(2);
         const val = new BN(event.returnValues.value, 10)
           .div(new BN('1000000000000000000'))
