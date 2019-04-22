@@ -1,6 +1,4 @@
 var HDWalletProvider = require('truffle-hdwallet-provider');
-const MNEMONIC =
-  'link excess isolate absurd tuna jump arm pause orphan foil start speed';
 
 /*
  * NB: since truffle-hdwallet-provider 0.0.5 you must wrap HDWallet providers in a
@@ -35,6 +33,8 @@ const MNEMONIC =
 //   },
 // };
 
+console.log(process.env.MNEMONIC);
+
 module.exports = {
   networks: {
     development: {
@@ -48,14 +48,13 @@ module.exports = {
     ropsten: {
       provider: function() {
         return new HDWalletProvider(
-          MNEMONIC,
-          'https://ropsten.infura.io/v3/148cf5958fe34905abc3be458055eb30',
-          0,
-          5,
+          process.env.MNEMONIC,
+          'https://ropsten.infura.io/v3/' + process.env.INFURA_API_KEY,
         );
       },
       network_id: 3,
       gas: 4700000, //make sure this gas allocation isn't over 4M, which is the max
+      skipDryRun: true,
     },
     rinkeby: {
       privider: function() {

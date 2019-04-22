@@ -3,6 +3,31 @@ import { Button, Animation } from 'mdbreact';
 import web3 from '../production/web3';
 const ethUtil = require('ethereumjs-util');
 
+function isInstalled() {
+    if (typeof web3 !== 'undefined'){
+       console.log('MetaMask is installed')
+    } 
+    else{
+       console.log('MetaMask is not installed')
+    }
+ }
+
+ function isLocked() {
+    web3.eth.getAccounts(function(err, accounts){
+       if (err != null) {
+          console.log(err)
+       }
+       else if (accounts.length === 0) {
+          console.log('MetaMask is locked')
+       }
+       else {
+          console.log('MetaMask is unlocked')
+       }
+    });
+ }
+
+
+
 class Landing extends Component {
     state = {
         metaMaskLoginError: false
