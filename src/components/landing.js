@@ -35,7 +35,8 @@ class Landing extends Component {
 
 
     login = async () => {
-        const address = await web3.eth.getCoinbase();
+       // const address = await web3.eth.getCoinbase();
+        const address = await window.ethereum.enable();
         const netId = await web3.eth.net.getId();
         if (ethUtil.isValidAddress(address) && netId == 3) {
             this.setState({ metaMaskLoginError: false });
