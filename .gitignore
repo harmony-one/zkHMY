@@ -26,3 +26,5 @@ zokrates
 
 *.bak
 .vscode
+
+artifacts

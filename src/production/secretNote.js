@@ -4,8 +4,7 @@ const BN = require('bn.js');
 const crypto = require('crypto');
 
 // const contractAddress = compiledSecretNote.networks[5777].address;
-//const contractAddress = '0x8F072E625BBC843adECd9D563C3DC3279399499C';
-const contractAddress = '0x7F69D34FDd8e446ac08D40553a2D25bEF57DF806';
+const contractAddress = '0x27FeCB49406579933Be0Ea6Db3aA5d179375789d';
 console.log('contractAddress', contractAddress);
 
 const SecretNote = new web3.eth.Contract(

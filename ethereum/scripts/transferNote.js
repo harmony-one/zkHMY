@@ -320,8 +320,7 @@ const abi = [
   },
 ];
 
-//const secretNoteAddress = '0x8F072E625BBC843adECd9D563C3DC3279399499C';
-const secretNoteAddress = '0x7F69D34FDd8e446ac08D40553a2D25bEF57DF806';
+const secretNoteAddress = '0x27FeCB49406579933Be0Ea6Db3aA5d179375789d';
 
 const BN = require('bn.js');
 const fs = require('fs');

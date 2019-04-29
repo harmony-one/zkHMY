@@ -9,7 +9,6 @@ class Home extends Component {
         return (
             <Animation type="fadeIn">
                 <MDBContainer>
-                    <Swapper></Swapper>
                     <ZeroCash></ZeroCash>
                 </MDBContainer>
             </Animation>

@@ -1,4 +1,6 @@
-import "LIBSNARK/sha256packed"
+import "hashes/sha256/512bitPacked.code" as sha256packed
+//import "LIBSNARK/sha256packed"
+
 
 // https://zokrates.github.io/sha256example.html#computing-a-hash-using-zokrates
 // A field value can only hold 254 bits due to the size of the underlying prime field used by zokrates. Therefore, 256 bit values need to be passed as 2 params of 128 bit values.
@@ -26,17 +28,23 @@ def main(field onh0, field onh1, private field ona, private field onb, private f
     field pkb = onb
 
     // old note
-    h0, h1 = sha256packed(pka, pkb, onc, ond)
+    tmp = sha256packed([pka, pkb, onc, ond])
+    field h0 = tmp[0]
+    field h1 = tmp[1]
     h0 == onh0 // verify with public input (hash of the note)
     h1 == onh1
 
     // new note 1 that goes to pkreciever
-    h0, h1 = sha256packed(nn1a, nn1b, nn1c, nn1d)
+    tmp = sha256packed([nn1a, nn1b, nn1c, nn1d])
+    h0 = tmp[0]
+    h1 = tmp[1]
     h0 == nn1h0
     h1 == nn1h1
 
     // new note (left over change) that goes back to sender (pk)
-    h0, h1 = sha256packed(pka, pkb, nn2c, nn2d)
+    tmp = sha256packed([pka, pkb, nn2c, nn2d])
+    h0 = tmp[0]
+    h1 = tmp[1]
     h0 == nn2h0
     h1 == nn2h1
 
