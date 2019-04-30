@@ -24,3 +24,5 @@ export ZOKRATES_HOME=/path/to/zokrates_stdlib/stdlib
 #### deploy smart contract
 
 Currently, we are manually deploying the smart contracts. At the same time, we are building Harmony SDK to make smart contract deployment easier. 
+
+The main smart contract is SecretNote.sol. It will call the verifier smart contract (verifier.sol) to verify the whether the transaction is legal. We use Zokrates to generate verifier.sol. After deploying our smart contracts, we can use front end to interact with smart contract to send and withdraw money without leaking privacy information.
