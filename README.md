@@ -6,7 +6,7 @@ We demonstrate private HMY ERC20 token transactions on Harmony testnet.
 
 ### Dependency
 
-Install [libsnark](https://github.com/scipr-lab/libsnark) and [zokrates](https://github.com/Zokrates/ZoKrates)
+Install [libsnark](https://github.com/scipr-lab/libsnark) and [zokrates](https://github.com/Zokrates/ZoKrates). Using libsnark and zokrates, we generate the proving.key and verification.key as well as the corresponding verifier.sol (solidity smart contract). 
 
 ### Development
 
