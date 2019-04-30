@@ -1,6 +1,10 @@
 # zk-HMY
 
-Private HMY ERC20 token transactions on Harmony testnet. The code is modified based on zk-Dai project.
+Zero Knowledge Proof on Harmony: 
+
+We demonstrate private HMY ERC20 token transactions on Harmony testnet. 
+
+The code is modified based on zk-Dai project.
 
 ### Dependency
 
@@ -19,4 +23,4 @@ export ZOKRATES_HOME=/path/to/zokrates_stdlib/stdlib
 
 #### deploy smart contract
 
-We are working on Harmony SDK to make smart contract deployment easier. Now, we just manually deploy smart contract
+Currently, we are manually deploying the smart contracts. At the same time, we are building Harmony SDK to make smart contract deployment easier. 
