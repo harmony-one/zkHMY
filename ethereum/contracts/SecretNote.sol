@@ -1,26 +1,26 @@
-pragma solidity ^0.4.25;
+pragma solidity >=0.4.25 <0.6.0;
 
 import "./ERC20Interface.sol";
 import "./verifier.sol";
 
 contract SecretNote is Verifier {
 
-  ERC20 internal HMY_TOKEN_ADDRESS = ERC20(0x4029D1FF3a5485CB12a0Ed891DDde81De8A6F8D4);
+  ERC20Interface internal HMY_TOKEN_ADDRESS = ERC20Interface(0x4029D1FF3a5485CB12a0Ed891DDde81De8A6F8D4);
 
-  constructor() {}
+  constructor() public {}
 
   enum State {Invalid, Created, Spent}
   mapping(bytes32 => State) public notes; // mapping of hash of the note to state
   string[] public allNotes;
   bytes32[] public allHashedNotes;
 
-  function createNote(address owner, uint amount, string encryptedNote) public {
-    bytes32 note = sha256(bytes32(owner), bytes32(amount));
+  function createNote(address owner, uint amount, string memory encryptedNote) public {
+    bytes32 note = sha256(abi.encodePacked(bytes32(uint256(owner)), bytes32(amount)));
     createNote(note, encryptedNote);
   }
 
   function claimNote(uint amount) public {
-    bytes32 note = sha256(bytes32(msg.sender), bytes32(amount));
+    bytes32 note = sha256(abi.encodePacked(bytes32(uint256(msg.sender)), bytes32(amount)));
     require(
       notes[note] == State.Created,
       'note doesnt exist'
@@ -35,18 +35,18 @@ contract SecretNote is Verifier {
   event Claim(address to, uint amount);
 
   function transferNote(
-    uint[2] a,
-    uint[2] a_p,
-    uint[2][2] b,
-    uint[2] b_p,
-    uint[2] c,
-    uint[2] c_p,
-    uint[2] h,
-    uint[2] k,
-    uint[7] input,
-    string encryptedNote1,
-    string encryptedNote2
-  ) {
+    uint[2] memory a,
+    uint[2] memory a_p,
+    uint[2][2] memory b,
+    uint[2] memory b_p,
+    uint[2] memory c,
+    uint[2] memory c_p,
+    uint[2] memory h,
+    uint[2] memory k,
+    uint[7] memory input,
+    string memory encryptedNote1,
+    string memory encryptedNote2
+  ) public {
     require(
       verifyTx(a, a_p, b, b_p, c, c_p, h, k, input),
       'Invalid zk proof'
@@ -70,18 +70,17 @@ contract SecretNote is Verifier {
   }
 
   event NoteCreated(bytes32 noteId, uint index);
-  function createNote(bytes32 note, string encryptedNote) internal {
+  function createNote(bytes32 note, string memory encryptedNote) internal {
     notes[note] = State.Created;
     allNotes.push(encryptedNote);
     allHashedNotes.push(note);
     emit NoteCreated(note, allNotes.length - 1);
   }
 
-  function calcNoteHash(uint _a, uint _b) internal returns(bytes32 note) {
-    bytes16 a = bytes16(_a);
-    bytes16 b = bytes16(_b);
+  function calcNoteHash(uint _a, uint _b) internal pure returns(bytes32 note) {
+    bytes16 a = bytes16(uint128(_a));
+    bytes32 b = bytes16(uint128(_b));
     bytes memory _note = new bytes(32);
-    
     for (uint i = 0; i < 16; i++) {
       _note[i] = a[i];
       _note[16 + i] = b[i];
@@ -89,7 +88,7 @@ contract SecretNote is Verifier {
     note = bytesToBytes32(_note, 0);
   }
 
-  function bytesToBytes32(bytes b, uint offset) internal pure returns (bytes32) {
+  function bytesToBytes32(bytes memory b, uint offset) internal pure returns (bytes32) {
     bytes32 out;
     for (uint i = 0; i < 32; i++) {
       out |= bytes32(b[offset + i] & 0xFF) >> (i * 8);

@@ -50,8 +50,8 @@ function getTransferZkParams(from, fromAmount, to, toAmount) {
 }
 
 getTransferZkParams(
-  '0x3644B986B3F5Ba3cb8D5627A22465942f8E06d09', // sender
+  '0x666d9dAc081cCEa209091D6e06D76678B09DccA3', // sender
   '0xb', // value of the secret note
-  '0x9e8f633D0C46ED7170EF3B30E291c64a91a49C7E', // receiver
+  '0xd6F8cD019Dc78E8CA33139b26da3447394eb12C7', // receiver
   '0x9' // value to be sent
 );

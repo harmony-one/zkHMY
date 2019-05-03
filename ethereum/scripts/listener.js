@@ -1,11 +1,12 @@
 const compiledHMYToken = require('./HarmonyBountyToken.json');
 //const Web3 = require('web3');
-const _web3 = require('./web3.js')
+const _web3 = require('./web3.js');
 const BN = require('bn.js');
 
 const projectFolder = '/Users/chao/harmony/zk-dai/ethereum';
 var truffleFile = require(projectFolder + '/build/contracts/SecretNote.json');
 var abi = truffleFile['abi'];
+console.log(abi);
 
 //const provider = new Web3.providers.HttpProvider(
 //  'https://ropsten.infura.io/v3/148cf5958fe34905abc3be458055eb30',
@@ -17,8 +18,8 @@ var abi = truffleFile['abi'];
 // );
 
 const hmyContractAddr = '0x4029D1FF3a5485CB12a0Ed891DDde81De8A6F8D4';
-let hmyContract = new _web3.eth.Contract(compiledHMYToken.abi,hmyContractAddr);
- 
+let hmyContract = new _web3.eth.Contract(compiledHMYToken.abi, hmyContractAddr);
+
 const secretNoteAddress = '0x27FeCB49406579933Be0Ea6Db3aA5d179375789d';
 
 let secretNoteContract = new _web3.eth.Contract(abi, secretNoteAddress);
@@ -42,7 +43,6 @@ async function execute() {
         return;
       }
       console.log(event);
-      console.log('hehe');
 
       // create secret note
       try {
