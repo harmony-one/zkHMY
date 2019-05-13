@@ -20,7 +20,8 @@ console.log(abi);
 const hmyContractAddr = '0x4029D1FF3a5485CB12a0Ed891DDde81De8A6F8D4';
 let hmyContract = new _web3.eth.Contract(compiledHMYToken.abi, hmyContractAddr);
 
-const secretNoteAddress = '0x27FeCB49406579933Be0Ea6Db3aA5d179375789d';
+// hehe
+const secretNoteAddress = '0x6851BB170f59D650D214856aa3845381A915c213';
 
 let secretNoteContract = new _web3.eth.Contract(abi, secretNoteAddress);
 // exports.module = {secretNoteAddress, abi};

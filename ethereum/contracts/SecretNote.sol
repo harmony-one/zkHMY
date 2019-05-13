@@ -16,7 +16,7 @@ contract SecretNote is Verifier {
 
   function createNote(address owner, uint amount, string memory encryptedNote) public {
     bytes32 note = sha256(abi.encodePacked(bytes32(uint256(owner)), bytes32(amount)));
-    createNote(note, encryptedNote);
+    createNoteInternal(note, encryptedNote);
   }
 
   function claimNote(uint amount) public {
@@ -60,9 +60,9 @@ contract SecretNote is Verifier {
 
     notes[spendingNote] = State.Spent;
     bytes32 newNote1 = calcNoteHash(input[2], input[3]);
-    createNote(newNote1, encryptedNote1);
+    createNoteInternal(newNote1, encryptedNote1);
     bytes32 newNote2 = calcNoteHash(input[4], input[5]);
-    createNote(newNote2, encryptedNote2);
+    createNoteInternal(newNote2, encryptedNote2);
   }
 
   function getNotesLength() public view returns(uint) {
@@ -70,7 +70,7 @@ contract SecretNote is Verifier {
   }
 
   event NoteCreated(bytes32 noteId, uint index);
-  function createNote(bytes32 note, string memory encryptedNote) internal {
+  function createNoteInternal(bytes32 note, string memory encryptedNote) internal {
     notes[note] = State.Created;
     allNotes.push(encryptedNote);
     allHashedNotes.push(note);
